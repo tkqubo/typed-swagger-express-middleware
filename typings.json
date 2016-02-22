@@ -1,0 +1,16 @@
+{
+  "name": "swagger-express-middleware",
+  "author": "tkqubo",
+  "main": "swagger-express-middleware.d.ts",
+  "browser": "swagger-express-middleware.d.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "swagger-express-middleware": "file:swagger-express-middleware.d.ts"
+  },
+  "ambientDependencies": {
+    "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#dd638012d63e069f2c99d06ef4dcc9616a943ee4",
+    "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#366b936e62a6244a15f011e0ee0559b903d1dd65",
+    "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#0fa4e9e61385646ea6a4cba2aef357353d2ce77f"
+  }
+}

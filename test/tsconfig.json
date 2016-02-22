@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "noImplicitAny": true,
+    "sourceMap": false
+  },
+  "files": [
+    "swagger-express-middleware-test.ts",
+    "../typings/main.d.ts"
+  ]
+}

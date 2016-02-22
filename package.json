@@ -1,0 +1,32 @@
+{
+  "name": "typed-swagger-express-middleware",
+  "version": "1.0.0-alpha.12",
+  "description": "Type definition for [swagger-express-middleware](https://github.com/BigstickCarpet/swagger-express-middleware)",
+  "main": "test/test.js",
+  "scripts": {
+    "clean": "rm -rfv typings && rm -rfv test/*.js",
+    "build": "npm run clean && typings install && tsc",
+    "start": "npm run build",
+    "test": "npm run start && cd test && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkqubo/typed-swagger-express-middleware.git"
+  },
+  "keywords": [
+    "TypeScript",
+    "express",
+    "swagger",
+    "middleware"
+  ],
+  "author": "tkqubo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tkqubo/typed-swagger-express-middleware/issues"
+  },
+  "homepage": "https://github.com/tkqubo/typed-swagger-express-middleware#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "swagger-express-middleware": "^1.0.0-alpha.12"
+  }
+}
