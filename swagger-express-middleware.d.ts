@@ -61,15 +61,24 @@ declare namespace middleware {
 
   export namespace interfaces {
     type Router = express.Router|express.Application;
+
     export interface Mock {
       (router?: Router, dataStore?: DataStore): express.RequestHandler[];
       (dataStore?: DataStore): express.RequestHandler[];
     }
+
     export interface ParseRequest {
       //TODO: options should be typed
-      (router?: Router, options?: any): express.RequestHandler[];
+      (router?: Router|ExpressRouteOptions, options?: any): express.RequestHandler[];
       (options?: any): express.RequestHandler[];
     }
+
+    export interface ExpressRouteOptions {
+      caseSensitive?: boolean;
+      strict?: boolean;
+      mergeParams?: boolean;
+    }
+
     export interface ParseRequestOptions {
       /**
        * Cookie parser options
@@ -192,7 +201,7 @@ declare namespace middleware {
     }
 
     export interface Files {
-      (router?: Router, options?: FilesOptions): express.RequestHandler[];
+      (router?: Router|ExpressRouteOptions, options?: FilesOptions): express.RequestHandler[];
       (options?: FilesOptions): express.RequestHandler[];
     }
 
@@ -209,7 +218,7 @@ declare namespace middleware {
       /**
        * The path that will serve the raw Swagger API file(s).
        */
-      rawFilesPath?: string;
+      rawFilesPath?: string|boolean;
     }
 
     export interface ResourceCallback {
