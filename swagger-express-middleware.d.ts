@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/tkqubo/typed-swagger-express-middleware
 
-import * as express from 'express';
+import * as http from 'http';
 
 /**
  * @param swagger The file path or URL of a Swagger 2.0 API spec, in YAML or JSON format. Or a valid Swagger object.
@@ -403,6 +403,200 @@ declare namespace middleware {
      *  If you don't specify this parameter, then it defaults to process.cwd().
      */
     constructor(baseDir?: string);
+  }
+
+  namespace express {
+    interface RequestHandler {
+      (req: Request, res: Response, next: NextFunction): any;
+    }
+
+    interface NextFunction {
+      (err?: any): void;
+    }
+
+    interface Request extends http.ServerRequest {
+      get (name: string): string;
+      header(name: string): string;
+      headers: { [key: string]: string; };
+      accepts(type: string|string[]): string;
+      acceptsCharsets(charset?: string|string[]): string[];
+      acceptsEncodings(encoding?: string|string[]): string[];
+      acceptsLanguages(lang?: string|string[]): string[];
+      range(size: number): any[];
+      accepted: MediaType[];
+      param(name: string, defaultValue?: any): string;
+      is(type: string): boolean;
+      protocol: string;
+      secure: boolean;
+      ip: string;
+      ips: string[];
+      subdomains: string[];
+      path: string;
+      hostname: string;
+      host: string;
+      fresh: boolean;
+      stale: boolean;
+      xhr: boolean;
+      body: any;
+      cookies: any;
+      method: string;
+      params: any;
+      user: any;
+      authenticatedUser: any;
+      clearCookie(name: string, options?: any): Response;
+      query: any;
+      route: any;
+      signedCookies: any;
+      originalUrl: string;
+      url: string;
+      baseUrl: string;
+      app: Application;
+    }
+
+    interface Response extends http.ServerResponse {
+      status(code: number): Response;
+      sendStatus(code: number): Response;
+      links(links: any): Response;
+      send: Send;
+      json: Send;
+      jsonp: Send;
+      sendFile(path: string, options: any, fn?: Errback): void;
+      sendFile(path: string, fn: Errback): void;
+      sendfile(path: string, options?: any, fn?: Errback): void;
+      sendfile(path: string, fn: Errback): void;
+      download(path: string, filename?: string, fn?: Errback): void;
+      download(path: string, fn: Errback): void;
+      contentType(type: string): Response;
+      type(type: string): Response;
+      format(obj: any): Response;
+      attachment(filename?: string): Response;
+      set(field: any): Response;
+      set(field: string, value?: string): Response;
+      header(field: any): Response;
+      header(field: string, value?: string): Response;
+      headersSent: boolean;
+      get (field: string): string;
+      clearCookie(name: string, options?: any): Response;
+      cookie(name: string, val: string, options: CookieOptions): Response;
+      cookie(name: string, val: any, options?: CookieOptions): Response;
+      location(url: string): Response;
+      redirect(url: string, status?: number): void;
+      redirect(status: number, url: string): void;
+      render(view: string, options?: Object, callback?: (err: Error, html: string) => void ): void;
+      render(view: string, callback?: (err: Error, html: string) => void ): void;
+      locals: any;
+      charset: string;
+    }
+
+    interface MediaType {
+      value: string;
+      quality: number;
+      type: string;
+      subtype:  string;
+    }
+
+    interface Errback { (err: Error): void; }
+
+    interface Send {
+      (status: number, body?: any): Response;
+      (body: any): Response;
+    }
+
+    interface CookieOptions {
+      maxAge?: number;
+      signed?: boolean;
+      expires?: Date;
+      httpOnly?: boolean;
+      path?: string;
+      domain?: string;
+      secure?: boolean;
+    }
+
+    interface Application extends IRouter<Application> {
+      init(): void;
+      defaultConfiguration(): void;
+      engine(ext: string, fn: Function): Application;
+      set(setting: string, val: any): Application;
+      get: {
+        (name: string): any; // Getter
+        (name: string|RegExp, ...handlers: RequestHandler[]): Application;
+      };
+      path(): string;
+      enabled(setting: string): boolean;
+      disabled(setting: string): boolean;
+      enable(setting: string): Application;
+      disable(setting: string): Application;
+      configure(fn: Function): Application;
+      configure(env0: string, fn: Function): Application;
+      configure(env0: string, env1: string, fn: Function): Application;
+      configure(env0: string, env1: string, env2: string, fn: Function): Application;
+      configure(env0: string, env1: string, env2: string, env3: string, fn: Function): Application;
+      configure(env0: string, env1: string, env2: string, env3: string, env4: string, fn: Function): Application;
+      render(name: string, options?: Object, callback?: (err: Error, html: string) => void): void;
+      render(name: string, callback: (err: Error, html: string) => void): void;
+      listen(port: number, hostname: string, backlog: number, callback?: Function): http.Server;
+      listen(port: number, hostname: string, callback?: Function): http.Server;
+      listen(port: number, callback?: Function): http.Server;
+      listen(path: string, callback?: Function): http.Server;
+      listen(handle: any, listeningListener?: Function): http.Server;
+      route(path: string): IRoute;
+      router: string;
+      settings: any;
+      resource: any;
+      map: any;
+      locals: any;
+      routes: any;
+    }
+
+    interface IRoute {
+      path: string;
+      stack: any;
+      all(...handler: RequestHandler[]): IRoute;
+      get(...handler: RequestHandler[]): IRoute;
+      post(...handler: RequestHandler[]): IRoute;
+      put(...handler: RequestHandler[]): IRoute;
+      delete(...handler: RequestHandler[]): IRoute;
+      patch(...handler: RequestHandler[]): IRoute;
+      options(...handler: RequestHandler[]): IRoute;
+      head(...handler: RequestHandler[]): IRoute;
+    }
+
+    interface IRouter<T> extends RequestHandler {
+      param(name: string, handler: RequestParamHandler): T;
+      param(name: string, matcher: RegExp): T;
+      param(name: string, mapper: (param: any) => any): T;
+      param(callback: (name: string, matcher: RegExp) => RequestParamHandler): T;
+      all: IRouterMatcher<T>;
+      get: IRouterMatcher<T>;
+      post: IRouterMatcher<T>;
+      put: IRouterMatcher<T>;
+      delete: IRouterMatcher<T>;
+      patch: IRouterMatcher<T>;
+      options: IRouterMatcher<T>;
+      head: IRouterMatcher<T>;
+      route(path: string): IRoute;
+      use(...handler: RequestHandler[]): T;
+      use(handler: ErrorRequestHandler|RequestHandler): T;
+      use(path: string|string[], ...handler: RequestHandler[]): T;
+      use(path: string|string[], handler: ErrorRequestHandler): T;
+      use(path: RegExp, ...handler: RequestHandler[]): T;
+      use(path: RegExp, handler: ErrorRequestHandler): T;
+      use(path:string, router: Router): T;
+    }
+
+    interface IRouterMatcher<T> {
+      (name: string|RegExp, ...handlers: RequestHandler[]): T;
+    }
+
+    interface RequestParamHandler {
+      (req: Request, res: Response, next: NextFunction, param: any): any;
+    }
+
+    interface ErrorRequestHandler {
+      (err: any, req: Request, res: Response, next: NextFunction): any;
+    }
+
+    interface Router extends IRouter<Router> {}
   }
 }
 
