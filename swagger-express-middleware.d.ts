@@ -48,13 +48,13 @@ declare namespace middleware {
     /** This method creates a new Mock middleware instance. */
     mock: interfaces.Mock;
     /** This method creates a new Metadata middleware instance. */
-    metadata(router?: interfaces.Router): express.RequestHandler[];
+    metadata(router?: interfaces.Router): express.RequestHandler;
     /** This method creates a new Parse Request middleware instance. */
     parseRequest: interfaces.ParseRequest;
     /** This method creates a new Validate Request middleware instance. */
-    validateRequest(router?: interfaces.Router): express.RequestHandler[];
+    validateRequest(router?: interfaces.Router): express.RequestHandler;
     /** This method creates a new CORS middleware instance. */
-    CORS(): express.RequestHandler[];
+    CORS(): express.RequestHandler;
     /** This method creates a new Files middleware instance. */
     files: interfaces.Files;
   }
@@ -63,14 +63,14 @@ declare namespace middleware {
     type Router = express.Router|express.Application;
 
     export interface Mock {
-      (router?: Router, dataStore?: DataStore): express.RequestHandler[];
-      (dataStore?: DataStore): express.RequestHandler[];
+      (router?: Router, dataStore?: DataStore): express.RequestHandler;
+      (dataStore?: DataStore): express.RequestHandler;
     }
 
     export interface ParseRequest {
       //TODO: options should be typed
-      (router?: Router|ExpressRouteOptions, options?: any): express.RequestHandler[];
-      (options?: any): express.RequestHandler[];
+      (router?: Router|ExpressRouteOptions, options?: any): express.RequestHandler;
+      (options?: any): express.RequestHandler;
     }
 
     export interface ExpressRouteOptions {
@@ -201,8 +201,8 @@ declare namespace middleware {
     }
 
     export interface Files {
-      (router?: Router|ExpressRouteOptions, options?: FilesOptions): express.RequestHandler[];
-      (options?: FilesOptions): express.RequestHandler[];
+      (router?: Router|ExpressRouteOptions, options?: FilesOptions): express.RequestHandler;
+      (options?: FilesOptions): express.RequestHandler;
     }
 
     export interface FilesOptions {
