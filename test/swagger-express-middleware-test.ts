@@ -11,12 +11,12 @@ let app = express();
 
 middleware(path.join(__dirname, 'PetStore.yaml'), app, (err, middleware) => {
   app.use(
-    ...middleware.metadata(),
-    ...middleware.CORS(),
-    ...middleware.files(),
-    ...middleware.parseRequest(),
-    ...middleware.validateRequest(),
-    ...middleware.mock()
+    middleware.metadata(),
+    middleware.CORS(),
+    middleware.files(),
+    middleware.parseRequest(),
+    middleware.validateRequest(),
+    middleware.mock()
   );
 
   app.listen(8000, function() {
@@ -45,8 +45,8 @@ middlewareInstance.init(path.join(__dirname, 'PetStore.yaml'), err => {
   app.enable('case sensitive routing');
   app.enable('strict routing');
 
-  app.use(...middlewareInstance.metadata());
-  app.use(...middlewareInstance.files(
+  app.use(middlewareInstance.metadata());
+  app.use(middlewareInstance.files(
     {
       // Override the Express App's case-sensitive and strict-routing settings
       // for the Files middleware.
@@ -62,7 +62,7 @@ middlewareInstance.init(path.join(__dirname, 'PetStore.yaml'), err => {
     }
   ));
 
-  app.use(...middlewareInstance.parseRequest(
+  app.use(middlewareInstance.parseRequest(
     {
       // Configure the cookie parser to use secure cookies
       cookie: {
@@ -83,8 +83,8 @@ middlewareInstance.init(path.join(__dirname, 'PetStore.yaml'), err => {
 
   // These two middleware don't have any options (yet)
   app.use(
-    ...middlewareInstance.CORS(),
-    ...middlewareInstance.validateRequest()
+    middlewareInstance.CORS(),
+    middlewareInstance.validateRequest()
   );
 
   // Add custom middleware
@@ -115,7 +115,7 @@ middlewareInstance.init(path.join(__dirname, 'PetStore.yaml'), err => {
 
   // The mock middleware will use our custom data store,
   // which we already pre-populated with mock data
-  app.use(...middlewareInstance.mock(myDB));
+  app.use(middlewareInstance.mock(myDB));
 
   // Add a custom error handler that returns errors as HTML
   app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
