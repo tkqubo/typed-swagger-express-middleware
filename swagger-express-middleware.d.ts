@@ -339,7 +339,7 @@ declare namespace middleware {
      * If the JSON is invalid, then an error will be thrown.
      * If the JSON is a single object, then a single Resource will be returned; otherwise, an array of Resource objects will be returned.
      */
-    static parse(json: string): Resource;
+    static parse(json: any): Resource|Resource[];
   }
 
   /**
