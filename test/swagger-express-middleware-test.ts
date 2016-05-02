@@ -38,8 +38,6 @@ middlewareInstance.init(path.join(__dirname, 'PetStore.yaml'), err => {
     new Resource('/pets/Hello%20Kitty', {name: 'Hello Kitty', type: 'cat', tags: ['white']})
   );
 
-
-
   // Enable Express' case-sensitive and strict options
   // (so "/pets/Fido", "/pets/fido", and "/pets/fido/" are all different)
   app.enable('case sensitive routing');
@@ -128,3 +126,10 @@ middlewareInstance.init(path.join(__dirname, 'PetStore.yaml'), err => {
     console.log('The Swagger Pet Store is now running at http://localhost:8000');
   });
 });
+
+
+// sample of parse method
+
+var parsed1: middleware.Resource|middleware.Resource[] = Resource.parse('{}');
+var parsed2: middleware.Resource[] = Resource.parse([1, 2, 3]);
+var parsed3: Resource = Resource.parse({num: 42});

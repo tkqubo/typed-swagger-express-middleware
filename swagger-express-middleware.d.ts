@@ -339,7 +339,22 @@ declare namespace middleware {
      * If the JSON is invalid, then an error will be thrown.
      * If the JSON is a single object, then a single Resource will be returned; otherwise, an array of Resource objects will be returned.
      */
-    static parse(json: any): Resource|Resource[];
+    static parse(json: string): Resource|Resource[];
+    /**
+     * Parses JSON data into Resource objects.
+     * @param json The JSON data to be parsed. This JSON data must be one or more Resource objects that were serialized using JSON.stringify().
+     * If the JSON is invalid, then an error will be thrown.
+     * If the JSON is a single object, then a single Resource will be returned; otherwise, an array of Resource objects will be returned.
+     */
+    static parse(json: any[]): Resource[];
+    /**
+     * Parses JSON data into Resource objects.
+     * @param json The JSON data to be parsed. This JSON data must be one or more Resource objects that were serialized using JSON.stringify().
+     * If the JSON is invalid, then an error will be thrown.
+     * If the JSON is a single object, then a single Resource will be returned; otherwise, an array of Resource objects will be returned.
+     */
+    static parse(json: any): Resource;
+    static hoge(): number;
   }
 
   /**
